@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>welcome</class>
- <widget class="QWidget" name="welcome">
+ <class>login</class>
+ <widget class="QWidget" name="login">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -39,24 +39,24 @@
      <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
     </property>
     <item row="0" column="1">
-     <widget class="QLineEdit" name="usuarioLineEdit"/>
+     <widget class="QLineEdit" name="usr_l"/>
     </item>
     <item row="0" column="0">
-     <widget class="QLabel" name="usuarioLabel">
+     <widget class="QLabel" name="usr">
       <property name="text">
        <string>Usuario</string>
       </property>
      </widget>
     </item>
     <item row="1" column="0">
-     <widget class="QLabel" name="passwordLabel">
+     <widget class="QLabel" name="pswd">
       <property name="text">
        <string>Password</string>
       </property>
      </widget>
     </item>
     <item row="1" column="1">
-     <widget class="QLineEdit" name="passwordLineEdit"/>
+     <widget class="QLineEdit" name="pswd_l"/>
     </item>
    </layout>
   </widget>
@@ -76,7 +76,7 @@
     <string>Bienvenido al software de horas medicas.</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="exit_l">
    <property name="geometry">
     <rect>
      <x>230</x>
@@ -89,7 +89,7 @@
     <string>Salir</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="acp_l">
    <property name="geometry">
     <rect>
      <x>80</x>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
- <widget class="QWidget" name="Form">
+ <class>paciente</class>
+ <widget class="QWidget" name="paciente">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="tab">
     <attribute name="title">
@@ -63,7 +63,7 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QLineEdit" name="nombreLineEdit"/>
+       <widget class="QLineEdit" name="nm_ap"/>
       </item>
       <item row="1" column="0">
        <widget class="QLabel" name="apellidosLabel">
@@ -73,7 +73,7 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QLineEdit" name="apellidosLineEdit"/>
+       <widget class="QLineEdit" name="ap_ap"/>
       </item>
       <item row="2" column="0">
        <widget class="QLabel" name="rutLabel">
@@ -83,11 +83,11 @@
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="QLineEdit" name="rutLineEdit"/>
+       <widget class="QLineEdit" name="fch_ap"/>
       </item>
      </layout>
     </widget>
-    <widget class="QPushButton" name="pushButton">
+    <widget class="QPushButton" name="agr_ap">
      <property name="geometry">
       <rect>
        <x>114</x>
@@ -123,7 +123,7 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QLineEdit" name="buscarRutLineEdit"/>
+       <widget class="QLineEdit" name="bcr_mp"/>
       </item>
      </layout>
     </widget>
@@ -140,7 +140,7 @@
       <enum>Qt::Horizontal</enum>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_3">
+    <widget class="QPushButton" name="bcr1_mp">
      <property name="geometry">
       <rect>
        <x>300</x>
@@ -171,7 +171,7 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QLineEdit" name="nombresLineEdit"/>
+       <widget class="QLineEdit" name="nm_mp"/>
       </item>
       <item row="1" column="0">
        <widget class="QLabel" name="apellidosLabel_2">
@@ -181,10 +181,10 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QLineEdit" name="apellidosLineEdit_2"/>
+       <widget class="QLineEdit" name="ap_mp"/>
       </item>
       <item row="2" column="1">
-       <widget class="QLineEdit" name="correoLineEdit"/>
+       <widget class="QLineEdit" name="fch_mp"/>
       </item>
       <item row="2" column="0">
        <widget class="QLabel" name="correoLabel">
@@ -195,7 +195,7 @@
       </item>
      </layout>
     </widget>
-    <widget class="QPushButton" name="pushButton_4">
+    <widget class="QPushButton" name="mdf_mp">
      <property name="geometry">
       <rect>
        <x>110</x>
@@ -231,11 +231,11 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QLineEdit" name="buscarRutLineEdit_2"/>
+       <widget class="QLineEdit" name="bcr_ep"/>
       </item>
      </layout>
     </widget>
-    <widget class="QPushButton" name="pushButton_5">
+    <widget class="QPushButton" name="elm_ep">
      <property name="geometry">
       <rect>
        <x>300</x>
@@ -261,7 +261,7 @@
       <enum>Qt::Horizontal</enum>
      </property>
     </widget>
-    <widget class="QLabel" name="label_2">
+    <widget class="QLabel" name="imp_ep">
      <property name="geometry">
       <rect>
        <x>55</x>
@@ -276,7 +276,7 @@
     </widget>
    </widget>
   </widget>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="exit_p">
    <property name="geometry">
     <rect>
      <x>160</x>
