@@ -1,0 +1,192 @@
+--Tabla especialidad
+CREATE TABLE especialidad(
+    id INTEGER NOT NULL,
+    nombre TEXT,
+    PRIMARY KEY (id));
+
+--Tabla medico
+CREATE TABLE medico(
+    rut INTEGER NOT NULL,
+    especialidad_id INTEGER,
+    nombres TEXT,
+    apellidos TEXT,
+    PRIMARY KEY(rut),
+    FOREIGN KEY(especialidad_id) REFERENCES especialidad(id));
+
+--cita
+CREATE TABLE cita(
+    id INTEGER NOT NULL,
+    paciente_rut INTEGER,
+    medico_rut INTEGER,
+    fecha DATETIME,
+    sintomas TEXT,
+    diagnostico TEXT,
+    recomendaciones TEXT,
+    receta TEXT,
+    PRIMARY KEY (id),
+    FOREIGN KEY(paciente_rut) REFERENCES paciente(rut),
+    FOREIGN KEY(medico_rut) REFERENCES medico(rut));
+--paciente
+
+CREATE TABLE paciente(
+    rut INTEGER NOT NULL,
+    nombres TEXT,
+    apellidos TEXT,
+    ficha_medica TEXT,
+    PRIMARY KEY(rut));
+______________________________________________________________________________
+
+ADMINISTRACION DE PACIENTES
+
+--Mostrar los datos de los pacientes
+SELECT * FROM paciente
+
+--Contar la cantidad de citas de un paciente
+SELECT COUNT(paciente_rut) AS citas
+FROM cita WHERE paciente_rut = '17855882';
+
+--Crear nuevo paciente
+INSERT INTO paciente(rut,nombres,apellidos,ficha_medica) VALUES(?,?,?,?)
+
+--Editar paciente
+UPDATE paciente SET nombres = nuevos_nombres
+UPDATE paciente SET apellidos = nuevos_apellidos
+UPDATE paciente SET rut = nuevo_rut
+UPDATE paciente SET ficha_medica = nueva_ficha_medica
+
+--Eliminar paciente
+DELETE FROM paciente WHERE rut = rut_ingresado
+
+
+ADMINISTRACION DE MEDICOS
+
+--Mostrar informacion de los medicos
+SELECT * FROM medico;
+
+--Contar la cantidad de citas por medico
+SELECT COUNT(medico_rut) AS citas
+FROM cita WHERE medico_rut = '8741001'
+
+--Crear nuevo medico
+INSERT INTO medico(rut,especialidad_id,nombres,apellidos,) VALUES(?,?,?,?)
+
+--Editar medico
+
+UPDATE medico SET rut = nuevo_rut
+UPDATE medico SET especialidad_id = nueva_especialidad
+UPDATE medico SET nombres = nuevos_nombres
+UPDATE medico SET apellidos = nuevos_apellidos
+
+--Eliminar Medico
+DELETE FROM medico WHERE rut = rut_ingresado
+
+
+ADMINISTRACION DE CITAS
+
+--citas ordenadas por hora
+SELECT * FROM CITA  GROUP BY FECHA;
+
+--crear cita
+INSERT INTO cita (paciente_rut,medico_rut,fecha,sintomas,diagnostico,recomendaciones,receta)
+VALUES (rutPaciente_ent,rutMedico_ent,fecha_ent,sintomas_ent,diagnostico_ent,recomendaciones_ent,receta_ent);
+
+--editar cita
+UPDATE cita SET paciente_rut = nuevoPaciente
+UPDATE cita SET medico_rut = nuevoMedico
+UPDATE cita SET fecha = nueva_fecha
+UPDATE cita SET sintomas = nuevos_sintomas
+UPDATE cita SET diagnostico = nuevo_diagnostico
+UPDATE cita SET recomendaciones = nuevas_recomendaciones
+UPDATE cita SET receta = nueva_receta
+
+--eliminar cita
+DELETE FROM cita WHERE paciente_rut = rut_ingresado
+
+FUNCIONALIDADES ADICIONALES
+
+--FILTRAR CITAS POR MEDICO
+SELECT * FROM cita 
+WHERE medico_rut = rut_ingresado
+
+--FILTRAR CITAS POR PACIENTE
+SELECT * FROM cita
+WHERE paciente_rut = rut_ingresado
+
+
+
+
+
+
+
+______________________________________________________________________________
+DATOS
+
+INSERT INTO especialidad(nombre) VALUES('Medicina Gral');
+INSERT INTO especialidad(nombre) VALUES('Pediatria');
+INSERT INTO especialidad(nombre) VALUES('Traumatologia');
+INSERT INTO especialidad(nombre) VALUES('Neurologia');
+INSERT INTO especialidad(nombre) VALUES('Oftalmologia');
+INSERT INTO especialidad(nombre) VALUES('Cardiologia');
+INSERT INTO especialidad(nombre) VALUES('Nefrologia');
+INSERT INTO especialidad(nombre) VALUES('Otorrinolaringologia');
+INSERT INTO especialidad(nombre) VALUES('Ginecologia');
+INSERT INTO especialidad(nombre) VALUES('Urologia');
+
+INSERT INTO medico (rut,especialidad_id,nombres,apellidos) VALUES (14217501,1,"Jorge Luis","Rojas Asenjo");
+INSERT INTO medico (rut,especialidad_id,nombres,apellidos) VALUES (14299501,1,"Geovana Catherinel","Perez Ortiz");
+INSERT INTO medico (rut,especialidad_id,nombres,apellidos) VALUES (9854258,3,"Jose Miguel","Fernandez Cerda");
+INSERT INTO medico (rut,especialidad_id,nombres,apellidos) VALUES (12478222,3,"Martin Ivan","Nuñez Jara");
+INSERT INTO medico (rut,especialidad_id,nombres,apellidos) VALUES (8741001,2,"Pamela Aline","Huerta Borquez");
+INSERT INTO medico (rut,especialidad_id,nombres,apellidos) VALUES (11753687,2,"Andres Manuel","Espinoza Badilla");
+INSERT INTO medico (rut,especialidad_id,nombres,apellidos) VALUES (13411021,4,"Luis Omar","Jorquera Morales");
+INSERT INTO medico (rut,especialidad_id,nombres,apellidos) VALUES (9004510,4,"Oscar Juan","Ochoa Nuñez");
+INSERT INTO medico (rut,especialidad_id,nombres,apellidos) VALUES (9536891,5,"Jessica Melissa","Navarrete Barra");
+INSERT INTO medico (rut,especialidad_id,nombres,apellidos) VALUES (12030568,5,"Alexis Jesus","Cortes Canales");
+INSERT INTO medico (rut,especialidad_id,nombres,apellidos) VALUES (14355882,6,"Paula Andrea","Fernandez Fernandez");
+INSERT INTO medico (rut,especialidad_id,nombres,apellidos) VALUES (9855744,6,"Marcos Daniel","Arriaza Gonzalez");
+INSERT INTO medico (rut,especialidad_id,nombres,apellidos) VALUES (11287411,7,"Fernando Alonso","Aburto Ojeda");
+INSERT INTO medico (rut,especialidad_id,nombres,apellidos) VALUES (11430589,8,"Jessica Andreal","Moya Zuñiga");
+INSERT INTO medico (rut,especialidad_id,nombres,apellidos) VALUES (12778892,8,"Jose Miguel","Galvez Jimenez");
+INSERT INTO medico (rut,especialidad_id,nombres,apellidos) VALUES (14010210,9,"Alfredo Manuel","Redondo Caro");
+INSERT INTO medico (rut,especialidad_id,nombres,apellidos) VALUES (13417814,10,"Franciso Andres","Mardones Oliva");
+
+
+INSERT INTO paciente (rut,nombres,apellidos,ficha_medica) VALUES (17855882,'Cesar Andres','Vargas Aguirre','sin ficha');
+INSERT INTO paciente (rut,nombres,apellidos,ficha_medica) VALUES (16709396,'Leandro Aristides','Caloguerea Farias','sin ficha');
+INSERT INTO paciente (rut,nombres,apellidos,ficha_medica) VALUES (17692948,'Patricio Dagoberto','Suazo Nuñez','sin ficha');
+INSERT INTO paciente (rut,nombres,apellidos,ficha_medica) VALUES (17125557,'Diego Ignacio','Rojas Asenjo','sin ficha');
+INSERT INTO paciente (rut,nombres,apellidos,ficha_medica) VALUES (14083018,'Cristian Rodrigo','Rojas Perez','sin ficha');
+
+
+INSERT INTO cita (paciente_rut,medico_rut,fecha,sintomas,diagnostico,recomendaciones,receta)
+VALUES (17855882,9536891,'2015-08-20','Vision borrosa','Miopia','Uso permanente de lentes','Lentes High-Lite con aumento de 0.5');
+INSERT INTO cita (paciente_rut,medico_rut,fecha,sintomas,diagnostico,recomendaciones,receta)
+VALUES (16709396,14299501,'2015-08-17','Fiebre, Congestion Nasal','Resfrio Cronico','Reposo por 3 dias','Paracetamol c/8hrs durante 3 dias');
+INSERT INTO cita (paciente_rut,medico_rut,fecha,sintomas,diagnostico,recomendaciones,receta)
+VALUES (17692948,9854258,'2015-07-21','Dolor muscular en la zona del tobillo','Esguince al tobillo','Descanso por 2 semanas','Antinflamatorios por 2 semanas');
+INSERT INTO cita (paciente_rut,medico_rut,fecha,sintomas,diagnostico,recomendaciones,receta)
+VALUES (14083018,14217501,'2015-09-20','Migraña','Sin diagnostico aun','Sin recomendaciones','No hay receta asignada');
+INSERT INTO cita (paciente_rut,medico_rut,fecha,sintomas,diagnostico,recomendaciones,receta)
+VALUES (17125557,14299501,'2015-09-10','Dolor Lumbar','Sin diagnostico aun','Sin recomendaciones','No hay receta asignada');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
