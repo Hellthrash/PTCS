@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'sportal.ui'
 #
-# Created: Sun Aug 30 19:07:00 2015
+# Created: Sun Aug 30 21:30:25 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -44,7 +44,7 @@ class Ui_inicio(object):
     def retranslateUi(self, inicio):
         inicio.setWindowTitle(QtGui.QApplication.translate("inicio", "Welcome", None, QtGui.QApplication.UnicodeUTF8))
         self.label.setText(QtGui.QApplication.translate("inicio", "Seleccione el portal que desea administrar", None, QtGui.QApplication.UnicodeUTF8))
-        self.exit_i.setText(QtGui.QApplication.translate("inicio", "Salir", None, QtGui.QApplication.UnicodeUTF8))
+        self.exit_i.setText(QtGui.QApplication.translate("inicio", "Volver", None, QtGui.QApplication.UnicodeUTF8))
         self.pc_i.setText(QtGui.QApplication.translate("inicio", "Portal Citas", None, QtGui.QApplication.UnicodeUTF8))
         self.pp_i.setText(QtGui.QApplication.translate("inicio", "Portal Pacientes", None, QtGui.QApplication.UnicodeUTF8))
         self.pm_i.setText(QtGui.QApplication.translate("inicio", "Portal Medicos", None, QtGui.QApplication.UnicodeUTF8))

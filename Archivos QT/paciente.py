@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'paciente.ui'
 #
-# Created: Sun Aug 30 19:06:49 2015
+# Created: Sun Aug 30 21:30:14 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.1
 #
 # WARNING! All changes made in this file will be lost!
@@ -135,7 +135,7 @@ class Ui_paciente(object):
         QtCore.QMetaObject.connectSlotsByName(paciente)
 
     def retranslateUi(self, paciente):
-        paciente.setWindowTitle(QtGui.QApplication.translate("paciente", "Form", None, QtGui.QApplication.UnicodeUTF8))
+        paciente.setWindowTitle(QtGui.QApplication.translate("paciente", "Formulario Paciente", None, QtGui.QApplication.UnicodeUTF8))
         self.label.setText(QtGui.QApplication.translate("paciente", "Datos necesarios:", None, QtGui.QApplication.UnicodeUTF8))
         self.nombreLabel.setText(QtGui.QApplication.translate("paciente", "Nombres", None, QtGui.QApplication.UnicodeUTF8))
         self.apellidosLabel.setText(QtGui.QApplication.translate("paciente", "Apellidos", None, QtGui.QApplication.UnicodeUTF8))
@@ -153,5 +153,5 @@ class Ui_paciente(object):
         self.elm_ep.setText(QtGui.QApplication.translate("paciente", "Eliminar", None, QtGui.QApplication.UnicodeUTF8))
         self.imp_ep.setText(QtGui.QApplication.translate("paciente", "<html><head/><body><p align=\"center\">Despliegue de informacion a eliminar</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), QtGui.QApplication.translate("paciente", "Eliminar", None, QtGui.QApplication.UnicodeUTF8))
-        self.exit_p.setText(QtGui.QApplication.translate("paciente", "Salir", None, QtGui.QApplication.UnicodeUTF8))
+        self.exit_p.setText(QtGui.QApplication.translate("paciente", "Volver", None, QtGui.QApplication.UnicodeUTF8))
 
