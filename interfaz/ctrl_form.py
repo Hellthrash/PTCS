@@ -7,23 +7,24 @@ import model
 
 class FormPaciente(QtGui.QDialog):
 
-    def __init__(self, parent=None, rut=None):
+    def __init__(self,parent = None, rut=None, nombres = None, apellidos = None, ficha = None):
         super(FormPaciente, self).__init__(parent)
         self.ui = Ui_Form()
         self.ui.setupUi(self)
         if rut is None:# Cuando no recibe rut crea, cuando recibe edita
             self.ui.save.clicked.connect(self.crear_paciente)
         else:
-            self.colocar_datos(rut)
+            print (rut)
+            self.colocar_datos(rut, nombres, apellidos, ficha)
             self.ui.save.clicked.connect(self.editar_alumno)
 
-    def colocar_datos(self, rut):
+    def colocar_datos(self, rut, nombres, apellidos, ficha):
         #ingresa los datos de los pacientes en las grillas
-        alumno = model.alumno(rut)
-        self.ui.rut.setText(alumno["rut"])
-        self.ui.names.setText(alumno["nombres"])
-        self.ui.lastnames.setText(alumno["apellidos"])
-        self.ui.email.setText(alumno["ficha"])
+        #paciente = model.paciente(rut)
+        self.ui.rut.setText(str(rut))
+        self.ui.names.setText(nombres)
+        self.ui.lastnames.setText(apellidos)
+        self.ui.email.setText(ficha)
 
     def obtener_datos(self):
         #obtiene los datos del paciente del formulario
@@ -53,9 +54,10 @@ class FormPaciente(QtGui.QDialog):
             pass
 
     def editar_alumno(self):
+
         rut, nombres, apellidos, ficha = self.obtener_datos()
         try:
-            model.editar_paciente(rut, nombre, apellidos, ficha)
+            model.editar_paciente(rut, nombres, apellidos, ficha)
             print "Editar"
         except (ValueError, IOError):
             errorMessageDialog = QtGui.QMessageBox(self)

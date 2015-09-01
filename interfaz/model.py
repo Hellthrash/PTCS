@@ -31,6 +31,12 @@ def obtener_pacientes():
     return pacientes
 
 
+def busca_paciente(rut):
+    con = conectar()
+    c = con.cursor()
+    query = ""
+
+
 def agregar_paciente(rut, nombres, apellidos, ficha_medica):
     con = conectar()
     c = con.cursor()
@@ -40,14 +46,13 @@ def agregar_paciente(rut, nombres, apellidos, ficha_medica):
     con.commit()
 
 
-def editar_paciente(rut, nombres, apellidos, ficha_medica):
+def editar_paciente(rut, nombres, apellidos, ficha):
     con = conectar()
     c = con.cursor()
     query = """UPDATE paciente
-    SET (nombres, apellidos, ficha_medica)
-    VALUES(?,?,?)
+    SET nombres = ?, apellidos = ?, ficha_medica = ?
     WHERE rut = ?"""
-    c.execute(query, (nombres, apellidos, ficha_medica, rut))
+    c.execute(query, (nombres, apellidos, ficha, rut))
     con.commit()
 
 

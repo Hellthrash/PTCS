@@ -122,7 +122,10 @@ class Vtn3(QtGui.QWidget):
             return False
         else:
             rut = data.index(index.row(), 0, QtCore.QModelIndex()).data()
-            self.ui.form = FormPaciente(self, rut)
+            nombres = data.index(index.row(), 1, QtCore.QModelIndex()).data()
+            apellidos = data.index(index.row(), 2, QtCore.QModelIndex()).data()
+            ficha = data.index(index.row(), 3, QtCore.QModelIndex()).data()
+            self.ui.form = FormPaciente(self, rut, nombres, apellidos, ficha)
             self.ui.form.accepted.connect(self.load_data)
             self.ui.form.show()
 
