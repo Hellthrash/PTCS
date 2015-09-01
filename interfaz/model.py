@@ -114,8 +114,7 @@ def editar_medico(rut, especialidad_id, nombres, apellidos):
     con = conectar()
     c = con.cursor()
     query = """UPDATE medico
-    SET (nombres, especialidad_id, apellidos)
-    VALUES(?,?,?)
+    SET nombres= ?, especialidad_id = ?, apellidos= ?
     WHERE rut = ?"""
     c.execute(query, (nombres, especialidad_id, apellidos, rut))
     con.commit()

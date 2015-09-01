@@ -9,7 +9,7 @@ import model as db_model
 
 
 class Vtn3(QtGui.QWidget):
-    
+
     def __init__(self):
         super(Vtn3, self).__init__()
         self.ui = Ui_Grid()
@@ -75,7 +75,7 @@ class Vtn3(QtGui.QWidget):
         rsp = msbox.exec_()
 
         if rsp == QtGui.QMessageBox.Ok:
-            self.delete()        
+            self.delete()
             print "realiza accion de eliminado"
         else:
             msbox = QtGui.QMessageBox(self)
@@ -113,13 +113,18 @@ class Vtn3(QtGui.QWidget):
             self.errorMessageDialog.showMessage(u"Debe seleccionar una fila")
             return False
         else:
-	    rut = data.index(index.row(), 0, QtCore.QModelIndex()).data()
+            rut = data.index(index.row(), 0, QtCore.QModelIndex()).data()
             nombres = data.index(index.row(), 1, QtCore.QModelIndex()).data()
             apellidos = data.index(index.row(), 2, QtCore.QModelIndex()).data()
             ficha = data.index(index.row(), 3, QtCore.QModelIndex()).data()
+            self.close()
             self.ui.form = FormPaciente(self, rut, nombres, apellidos, ficha)
             self.ui.form.accepted.connect(self.load_data)
             self.ui.form.show()
+
+    def reloadG(self):
+        self.load_data(self)
+
 
 
 if __name__ == '__main__':

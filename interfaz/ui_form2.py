@@ -76,7 +76,7 @@ class Ui_Form(object):
         self.label_3.setText(QtGui.QApplication.translate("Form", "Fecha", None, QtGui.QApplication.UnicodeUTF8))
         self.cancel.setText(QtGui.QApplication.translate("Form", "Cancelar", None, QtGui.QApplication.UnicodeUTF8))
         self.label_4.setText(QtGui.QApplication.translate("Form", "Sintoma", None, QtGui.QApplication.UnicodeUTF8))
-        self.p_rut.setPlaceholderText(QtGui.QApplication.translate("Form", "Ingrese rut con guión", None, QtGui.QApplication.UnicodeUTF8))
+        self.p_rut.setPlaceholderText(QtGui.QApplication.translate("Form", "Ingrese rut sin guión ni digito", None, QtGui.QApplication.UnicodeUTF8))
         self.label_6.setText(QtGui.QApplication.translate("Form", "Recomendaciones", None, QtGui.QApplication.UnicodeUTF8))
         self.label_5.setText(QtGui.QApplication.translate("Form", "Diagnostico", None, QtGui.QApplication.UnicodeUTF8))
 

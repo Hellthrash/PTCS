@@ -2,14 +2,14 @@
 # -*- coding: utf-8 -*-
 import sys
 from PySide import QtGui, QtCore
-from ctrl_form2 import FormMedico
+from ctrl_form2 import *
 from ui_grid import Ui_Grid
 import model as db_model
 #grilla de medicos, donde los agrega, edita y elimina a la lista
 
 
 class Vtn4(QtGui.QWidget):
-    
+
     def __init__(self):
         super(Vtn4, self).__init__()
         self.ui = Ui_Grid()
@@ -33,26 +33,28 @@ class Vtn4(QtGui.QWidget):
         """
         Función que carga la información de medico en la grilla
         """
-        mdco = db_model.obtener_pacientes()
+        mdco = db_model.obtener_medicos()
         #Creamos el modelo asociado a la tabla
         self.data = QtGui.QStandardItemModel(len(mdco), 5)
         self.data.setHorizontalHeaderItem(0, QtGui.QStandardItem(u"RUT"))
-        self.data.setHorizontalHeaderItem(1, QtGui.QStandardItem(u"Nombres"))
-        self.data.setHorizontalHeaderItem(2, QtGui.QStandardItem(u"Apellidos"))
-        self.data.setHorizontalHeaderItem(3, QtGui.QStandardItem(u"Ficha Medica"))#posible error de valor tienne especialidad
-        self.data.setHorizontalHeaderItem(4, QtGui.QStandardItem(u"Citas"))
+        self.data.setHorizontalHeaderItem(1, QtGui.QStandardItem(u"Especialidad"))
+        self.data.setHorizontalHeaderItem(2, QtGui.QStandardItem(u"Nombres"))
+        self.data.setHorizontalHeaderItem(3, QtGui.QStandardItem(u"Apellidos"))#posible error de valor tienne especialidad
+        self.data.setHorizontalHeaderItem(4, QtGui.QStandardItem(u"N° de citas"))
+
 
         for r, row in enumerate(mdco):
             index = self.data.index(r, 0, QtCore.QModelIndex())
             self.data.setData(index, row['rut'])
             index = self.data.index(r, 1, QtCore.QModelIndex())
-            self.data.setData(index, row['nombres'])
+            self.data.setData(index, row['Especialidad'])
             index = self.data.index(r, 2, QtCore.QModelIndex())
-            self.data.setData(index, row['apellidos'])
+            self.data.setData(index, row['nombres'])
             index = self.data.index(r, 3, QtCore.QModelIndex())
-            self.data.setData(index, row['Ficha Medica'])
+            self.data.setData(index, row['apellidos'])
             index = self.data.index(r, 4, QtCore.QModelIndex())
-            self.data.setData(index, row['Citas'])
+            self.data.setData(index, row['citas'])
+
 
         self.ui.table.setModel(self.data)
 
@@ -75,7 +77,7 @@ class Vtn4(QtGui.QWidget):
         rsp = msbox.exec_()
 
         if rsp == QtGui.QMessageBox.Ok:
-            self.delete()        
+            self.delete()
             print "realiza accion de eliminado"
         else:
             msbox = QtGui.QMessageBox(self)
@@ -93,7 +95,7 @@ class Vtn4(QtGui.QWidget):
         else:
             rut = data.index(index.row(), 0, QtCore.QModelIndex()).data()
             citas = data.index(index.row(), 4, QtCore.QModelIndex()).data()
-            if (db_model.delete_paciente(rut, citas)):
+            if (db_model.delete_medico(rut, citas)):
                 self.load_data()
                 msgBox = QtGui.QMessageBox()
                 msgBox.setText(u"EL registro fue eliminado.")
@@ -114,13 +116,16 @@ class Vtn4(QtGui.QWidget):
             return False
         else:
             rut = data.index(index.row(), 0, QtCore.QModelIndex()).data()
-            nombres = data.index(index.row(), 1, QtCore.QModelIndex()).data()
-            apellidos = data.index(index.row(), 2, QtCore.QModelIndex()).data()
-            ficha = data.index(index.row(), 3, QtCore.QModelIndex()).data()
-            self.ui.form = FormMedico(self, rut, nombres, apellidos, ficha)
+            especialidad = data.index(index.row(), 1, QtCore.QModelIndex()).data()
+            nombres = data.index(index.row(), 2, QtCore.QModelIndex()).data()
+            apellidos = data.index(index.row(), 3, QtCore.QModelIndex()).data()
+            self.close()
+            self.ui.form = FormMedico(self, rut, especialidad, nombres, apellidos)
             self.ui.form.accepted.connect(self.load_data)
             self.ui.form.show()
 
+    def reloadG(self):
+        self.load_data(self)
 
 if __name__ == '__main__':
     app = QtGui.QApplication(sys.argv)

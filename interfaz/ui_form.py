@@ -51,12 +51,12 @@ class Ui_Form(object):
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
-        Form.setWindowTitle(QtGui.QApplication.translate("Form", "Alumno", None, QtGui.QApplication.UnicodeUTF8))
+        Form.setWindowTitle(QtGui.QApplication.translate("Form", "Paciente", None, QtGui.QApplication.UnicodeUTF8))
         self.save.setText(QtGui.QApplication.translate("Form", "Aceptar", None, QtGui.QApplication.UnicodeUTF8))
         self.label.setText(QtGui.QApplication.translate("Form", "RUT:", None, QtGui.QApplication.UnicodeUTF8))
         self.label_2.setText(QtGui.QApplication.translate("Form", "Nombres", None, QtGui.QApplication.UnicodeUTF8))
         self.label_3.setText(QtGui.QApplication.translate("Form", "Apellidos", None, QtGui.QApplication.UnicodeUTF8))
         self.cancel.setText(QtGui.QApplication.translate("Form", "Cancelar", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_4.setText(QtGui.QApplication.translate("Form", "Correo", None, QtGui.QApplication.UnicodeUTF8))
-        self.rut.setPlaceholderText(QtGui.QApplication.translate("Form", "Ingrese rut con guión", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_4.setText(QtGui.QApplication.translate("Form", "Ficha", None, QtGui.QApplication.UnicodeUTF8))
+        self.rut.setPlaceholderText(QtGui.QApplication.translate("Form", "Ingrese rut sin guión ni digito", None, QtGui.QApplication.UnicodeUTF8))
 

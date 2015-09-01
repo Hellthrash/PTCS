@@ -9,6 +9,8 @@ import model as db_model
 
 
 class Vtn5(QtGui.QWidget):
+    """Metodo controlador de la grilla citas, contiene sus botones y
+    las acciones a realizar por cada uno"""
 
     def __init__(self):
         super(Vtn5, self).__init__()
@@ -131,10 +133,14 @@ class Vtn5(QtGui.QWidget):
 	    diagnostico = data.index(index.row(), 4, QtCore.QModelIndex()).data()
 	    recomendaciones = data.index(index.row(), 5, QtCore.QModelIndex()).data()
 	    receta = data.index(index.row(), 6, QtCore.QModelIndex()).data()
+	    self.close()
             self.ui.form = FormCitas(self,paciente_rut, medico_rut, fecha,
                 sintomas, diagnostico, recomendaciones, receta)
             self.ui.form.accepted.connect(self.load_data)
             self.ui.form.show()
+
+    def reloadG(self):
+        self.load_data(self)
 
 
 if __name__ == '__main__':

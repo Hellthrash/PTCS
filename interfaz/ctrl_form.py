@@ -2,24 +2,36 @@
 
 from PySide import QtGui
 from ui_form import Ui_Form
+from ctrl_grid import *
 import model
 
 
 class FormPaciente(QtGui.QDialog):
 
-    def __init__(self,parent = None, rut=None, nombres = None, apellidos = None, ficha = None):
+    def __init__(self, parent = None, rut=None, nombres = None, apellidos = None, ficha = None):
         super(FormPaciente, self).__init__(parent)
         self.ui = Ui_Form()
         self.ui.setupUi(self)
         if rut is None:# Cuando no recibe rut crea, cuando recibe edita
             self.ui.save.clicked.connect(self.crear_paciente)
+            self.ui.cancel.clicked.connect(self.exitformnuevo)
         else:
 	    self.colocar_datos(rut, nombres, apellidos, ficha)
             self.ui.save.clicked.connect(self.editar_pcte)
+            self.ui.cancel.clicked.connect(self.exitform)
+
+    def exitformnuevo(self):
+        self.close()
+
+    def exitform(self):
+        from ctrl_grid import *
+        self.close()
+        self.rld = Vtn3()
+        self.rld.reloadG()
 
     def colocar_datos(self, rut, nombres, apellidos, ficha):
         #ingresa los datos de los pacientes en las grillas
-        
+
         self.ui.rut.setText(str(rut))
         self.ui.names.setText(nombres)
         self.ui.lastnames.setText(apellidos)
@@ -50,11 +62,16 @@ class FormPaciente(QtGui.QDialog):
             pass
 
     def editar_pcte(self):
-      
+        from ctrl_grid import *
         rut, nombres, apellidos, ficha = self.obtener_datos()
         try:
             model.editar_paciente(rut, nombres, apellidos, ficha)
-            print "Editar"
+            msgBox = QtGui.QMessageBox()
+            msgBox.setText(u"El paciente ha sido editado.")
+            msgBox.exec_()
+            self.close()
+            self.rld = Vtn3()
+            self.rld.reloadG()
         except (ValueError, IOError):
             errorMessageDialog = QtGui.QMessageBox(self)
             self.errorMessageDialog.setText("Debe Completar los campos correctamente")

@@ -2,6 +2,7 @@
 
 from PySide import QtGui
 from ui_form import Ui_Form
+from ctrl_grid2 import *
 import model
 
 
@@ -16,10 +17,17 @@ class FormMedico(QtGui.QDialog):
         else:
             self.colocar_datos(rut, nombres, apellidos, ficha)
             self.ui.save.clicked.connect(self.editar_mdco)
+            self.ui.cancel.clicked.connect(self.exitform)
+
+    def exitform(self):
+        from ctrl_grid2 import *
+        self.close()
+        self.rld = Vtn4()
+        self.rld.reloadG()
 
     def colocar_datos(self, rut, nombres, apellidos, ficha):
         #ingresa los datos de los medicos en las grillas
-        
+
         self.ui.rut.setText(str(rut))
         self.ui.names.setText(nombres)
         self.ui.lastnames.setText(apellidos)
@@ -50,11 +58,16 @@ class FormMedico(QtGui.QDialog):
             pass
 
     def editar_mdco(self):
-      
-        rut, nombres, apellidos, ficha = self.obtener_datos()
+        from ctrl_grid2 import *
+        rut, Especialidad, nombres, apellidos = self.obtener_datos()
         try:
-            model.editar_paciente(rut, nombres, apellidos, ficha)
-            print "Editar"
+            model.editar_medico(rut, Especialidad,nombres, apellidos)
+            msgBox = QtGui.QMessageBox()
+            msgBox.setText(u"El medico ha sido editado.")
+            msgBox.exec_()
+            self.close()
+            self.rld = Vtn4()
+            self.rld.reloadG()
         except (ValueError, IOError):
             errorMessageDialog = QtGui.QMessageBox(self)
             self.errorMessageDialog.setText("Debe Completar los campos correctamente")

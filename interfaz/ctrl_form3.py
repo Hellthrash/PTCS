@@ -2,33 +2,38 @@
 
 from PySide import QtGui
 from ui_form2 import Ui_Form
+from ctrl_grid3 import *
 import model
 
 
 class FormCitas(QtGui.QDialog):
+    """Clase encargada del manejo del formulario citas, determina que hace
+    cada boton el formulario y llama los metodos del modelo"""
 
-    def __init__(self, parent=None, paciente_rut=None, medico_rut=None,
-        fecha=None, sintomas=None, diagnostico=None, recomendaciones=None,
-        receta=None):
+    def __init__(self, parent=None, paciente_rut=None, medico_rut = None,
+        fecha = None, sintomas = None, diagnostico = None, recomendaciones = None,
+        receta = None):
         super(FormCitas, self).__init__(parent)
         self.ui = Ui_Form()
         self.ui.setupUi(self)
-        if paciente_rut is None:  # Cuando no recibe rut crea, cuando recibe edita
+        if paciente_rut is None:# Cuando no recibe rut crea, cuando recibe edita
             self.ui.save.clicked.connect(self.crear_ct)
+            self.ui.cancel.clicked.connect(self.exitformnuevo)
         else:
-            self.colocar_datos(paciente_rut, medico_rut, fecha, sintomas,
-                diagnostico, recomendaciones, receta)
+            self.colocar_datos(paciente_rut,medico_rut,fecha,sintomas,diagnostico,recomendaciones,receta)
             self.ui.save.clicked.connect(self.editar_cita)
             self.ui.cancel.clicked.connect(self.exitform)
 
-    def exitform(self):
-        from ctrl_grid import *
+    def exitformnuevo(self):
         self.close()
-        self.rld = Vtn3()
+
+    def exitform(self):
+        from ctrl_grid3 import *
+        self.close()
+        self.rld = Vtn5()
         self.rld.reloadG()
 
-    def colocar_datos(self, paciente_rut, medico_rut, fecha, sintomas,
-        diagnostico, recomendaciones, receta):
+    def colocar_datos(self, paciente_rut,medico_rut,fecha,sintomas,diagnostico,recomendaciones,receta):
         #ingresa los datos de los medicos en las grillas
 
         self.ui.p_rut.setText(str(paciente_rut))
@@ -51,7 +56,7 @@ class FormCitas(QtGui.QDialog):
         return (paciente_rut,medico_rut,fecha,sintomas,diagnostico,recomendaciones,receta)
 
     def crear_ct(self):
-        paciente_rut, medico_rut, fecha, sintomas, diagnostico, recomendaciones,receta = self.obtener_datos()
+        paciente_rut,medico_rut,fecha,sintomas,diagnostico,recomendaciones,receta = self.obtener_datos()
         print(paciente_rut)
         print(medico_rut)
         print(fecha)
@@ -74,11 +79,16 @@ class FormCitas(QtGui.QDialog):
             pass
 
     def editar_cita(self):
-
+        from ctrl_grid3 import *
         paciente_rut, medico_rut, fecha, sintomas, diagnostico, recomendaciones, receta = self.obtener_datos()
         try:
             model.editar_cita(paciente_rut,medico_rut,fecha,sintomas,diagnostico,recomendaciones,receta)
-            print "Editar"
+            msgBox = QtGui.QMessageBox()
+            msgBox.setText(u"La cita ha sido editada.")
+            msgBox.exec_()
+            self.close()
+            self.rld = Vtn5()
+            self.rld.reloadG()
         except (ValueError, IOError):
             errorMessageDialog = QtGui.QMessageBox(self)
             self.errorMessageDialog.setText("Debe Completar los campos correctamente")
