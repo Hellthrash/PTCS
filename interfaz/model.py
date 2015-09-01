@@ -155,13 +155,13 @@ def obtener_citas():
     return citas
 
 
-def delete_cita(id):
+def delete_cita(paciente_rut, medico_rut, fecha):
     exito = False
     con = conectar()
     c = con.cursor()
-    query = "DELETE FROM citas WHERE id = ?"
+    query = "DELETE FROM cita WHERE paciente_rut = ? and medico_rut= ? and fecha = ?"
     try:
-        resultado = c.execute(query, [id])
+        resultado = c.execute(query, (paciente_rut, medico_rut, fecha))
         con.commit()
         exito = True
     except sqlite3.Error as e:
@@ -174,18 +174,19 @@ def agregar_cita(paciente_rut,medico_rut,fecha,sintomas,diagnostico,recomendacio
     con = conectar()
     c = con.cursor()
     query = """INSERT INTO cita (paciente_rut,medico_rut,fecha,sintomas,diagnostico,recomendaciones,receta)
-    VALUES  (?, ?, ?, ?)"""
+    VALUES  (?, ?, ?, ?, ?, ?, ?)"""
     c.execute(query, (paciente_rut,medico_rut,fecha,sintomas,diagnostico,recomendaciones,receta))
     con.commit()
 
 
-def editar_cita(paciente_rut,medico_rut,fecha,sintomas,diagnostico,recomendaciones,receta):
+def editar_cita(paciente_rut, medico_rut, fecha, sintomas, diagnostico,
+    recomendaciones, receta):
+    F = fecha
     con = conectar()
     c = con.cursor()
     query = """UPDATE cita
-    SET (fecha,sintomas,diagnostico,recomendaciones,receta)
-    VALUES(?,?,?)
+    SET fecha= ?,sintomas= ?, diagnostico= ?, recomendaciones= ?, receta= ?
     WHERE paciente_rut = ? AND medico_rut = ? AND fecha = ? """
-    c.execute(query, (fecha,sintomas,diagnostico,recomendaciones,receta))
+    c.execute(query, (fecha, sintomas, diagnostico, recomendaciones, receta, paciente_rut, medico_rut, F))
     con.commit()
 

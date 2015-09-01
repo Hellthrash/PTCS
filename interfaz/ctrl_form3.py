@@ -7,11 +7,13 @@ import model
 
 class FormCitas(QtGui.QDialog):
 
-    def __init__(self, parent=None, rut=None):
+    def __init__(self, parent=None, paciente_rut=None, medico_rut = None,
+        fecha = None, sintomas = None, diagnostico = None, recomendaciones = None,
+        receta = None):
         super(FormCitas, self).__init__(parent)
         self.ui = Ui_Form()
         self.ui.setupUi(self)
-        if rut is None:# Cuando no recibe rut crea, cuando recibe edita
+        if paciente_rut is None:# Cuando no recibe rut crea, cuando recibe edita
             self.ui.save.clicked.connect(self.crear_ct)
         else:
             self.colocar_datos(paciente_rut,medico_rut,fecha,sintomas,diagnostico,recomendaciones,receta)
@@ -23,30 +25,37 @@ class FormCitas(QtGui.QDialog):
         self.ui.p_rut.setText(str(paciente_rut))
         self.ui.m_rut.setText(str(medico_rut))
         self.ui.fecha.setText(fecha)
-        self.ui.sintomas.setText(sintomas)
-        self.ui.diagnostico.setText(diagostico)
+        self.ui.sintoma.setText(sintomas)
+        self.ui.diagnostico.setText(diagnostico)
         self.ui.recomendaciones.setText(recomendaciones)
         self.ui.receta.setText(receta)
 
     def obtener_datos(self):
         #obtiene los datos del medico del formulario
-        paciente_rut = self.ui.p_rut.Text()
-        medico_rut = self.ui.m_rut.Text()
-        fecha = self.ui.fecha.Text()
-        sintomas = self.ui.sintomas.Text()
-        diagostico = self.ui.diagnostico.Text()
-        recomendaciones = self.ui.recomendaciones.Text()
-        receta = self.ui.receta.Text()
+        paciente_rut = self.ui.p_rut.text()
+        medico_rut = self.ui.m_rut.text()
+        fecha = self.ui.fecha.text()
+        sintomas = self.ui.sintoma.text()
+        diagnostico = self.ui.diagnostico.text()
+        recomendaciones = self.ui.recomendaciones.text()
+        receta = self.ui.receta.text()
         return (paciente_rut,medico_rut,fecha,sintomas,diagnostico,recomendaciones,receta)
 
     def crear_ct(self):
         paciente_rut,medico_rut,fecha,sintomas,diagnostico,recomendaciones,receta = self.obtener_datos()
+        print(paciente_rut)
+        print(medico_rut)
+        print(fecha)
+        print(sintomas)
+        print(diagnostico)
+        print(recomendaciones)
+        print(receta)
 
         try:
-            model.agregar_paciente(paciente_rut,medico_rut,fecha,sintomas,diagnostico,recomendaciones,receta)
+            model.agregar_cita(paciente_rut,medico_rut,fecha,sintomas,diagnostico,recomendaciones,receta)
             self.accepted.emit()
             msgBox = QtGui.QMessageBox()
-            msgBox.setText(u"El paciente ha sido creado.")
+            msgBox.setText(u"La cita ha sido creada.")
             msgBox.exec_()
             self.close()
         except(ValueError, IOError):

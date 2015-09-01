@@ -101,8 +101,10 @@ class Vtn5(QtGui.QWidget):
             return False
         else:
             paciente_rut = data.index(index.row(), 0, QtCore.QModelIndex()).data()
+            medico_rut = data.index(index.row(), 1, QtCore.QModelIndex()).data()
+            fecha = data.index(index.row(), 2, QtCore.QModelIndex()).data()
             #citas = data.index(index.row(), 4, QtCore.QModelIndex()).data() dejo esgta linea x si las moscas
-            if (db_model.borrar(rut)):
+            if (db_model.delete_cita(paciente_rut, medico_rut, fecha)):
                 self.load_data()
                 msgBox = QtGui.QMessageBox()
                 msgBox.setText(u"EL registro fue eliminado.")
@@ -126,10 +128,11 @@ class Vtn5(QtGui.QWidget):
 	    medico_rut = data.index(index.row(), 1, QtCore.QModelIndex()).data()
 	    fecha = data.index(index.row(), 2, QtCore.QModelIndex()).data()
 	    sintomas = data.index(index.row(), 3, QtCore.QModelIndex()).data()
-	    diagostico = data.index(index.row(), 4, QtCore.QModelIndex()).data()
+	    diagnostico = data.index(index.row(), 4, QtCore.QModelIndex()).data()
 	    recomendaciones = data.index(index.row(), 5, QtCore.QModelIndex()).data()
 	    receta = data.index(index.row(), 6, QtCore.QModelIndex()).data()
-            self.ui.form = FormCitas(self,paciente_rut, medico_rut)
+            self.ui.form = FormCitas(self,paciente_rut, medico_rut, fecha,
+                sintomas, diagnostico, recomendaciones, receta)
             self.ui.form.accepted.connect(self.load_data)
             self.ui.form.show()
 
