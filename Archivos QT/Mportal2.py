@@ -4,8 +4,8 @@ import sys
 from PySide import QtCore, QtGui
 from sportal import Ui_inicio
 from crtl_main import *
-from ctrl_p import *
-from grid import *
+from ctrl_grid import *
+from ui_grid import *
 
 
 class Vtn2(QtGui.QMainWindow):

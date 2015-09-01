@@ -22,8 +22,10 @@ class Main(QtGui.QMainWindow):
     def validar(self):
         from Mportal2 import * # Se carga nuevamente para evitar conflicto
         self.errorMessageDialog = QtGui.QMessageBox(self)
-        usr = self.ui1.usr_l.text()
-        psswd = self.ui1.pswd_l.text()
+        #usr = self.ui1.usr_l.text()
+        #psswd = self.ui1.pswd_l.text()
+        usr = "admin"
+        psswd = "admin"
         if (usr == "admin" and psswd == "admin"):
             self.close()
             self.v2 = Vtn2()
