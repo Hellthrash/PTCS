@@ -57,7 +57,7 @@ def delete_paciente(rut, citas):
     con = conectar()
     c = con.cursor()
     query = "DELETE FROM paciente WHERE rut = ?"
-    if (citas > 0):
+    if (citas == 0):
         try:
             resultado = c.execute(query, [rut])
             con.commit()
@@ -68,6 +68,8 @@ def delete_paciente(rut, citas):
         con.close()
     else:
         exito = False
+
+    #print exito
     return exito
 
 

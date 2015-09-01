@@ -77,7 +77,7 @@ class Vtn3(QtGui.QWidget):
         rsp = msbox.exec_()
 
         if rsp == QtGui.QMessageBox.Ok:
-            #self.delete()        Deshacer comentario para el borrado
+            self.delete()
             print "realiza accion de eliminado"
         else:
             msbox = QtGui.QMessageBox(self)
@@ -94,7 +94,10 @@ class Vtn3(QtGui.QWidget):
             return False
         else:
             rut = data.index(index.row(), 0, QtCore.QModelIndex()).data()
-            if (db_model.borrar(rut)):
+            citas = data.index(index.row(), 4, QtCore.QModelIndex()).data()
+            print (rut)
+            print (citas)
+            if (db_model.delete_paciente(rut, citas)):
                 self.load_data()
                 msgBox = QtGui.QMessageBox()
                 msgBox.setText(u"EL registro fue eliminado.")
