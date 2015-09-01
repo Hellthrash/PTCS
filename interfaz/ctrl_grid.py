@@ -37,11 +37,12 @@ class Vtn3(QtGui.QWidget):
         """
         paciente = db_model.obtener_pacientes()
         #Creamos el modelo asociado a la tabla
-        self.data = QtGui.QStandardItemModel(len(paciente), 4)
+        self.data = QtGui.QStandardItemModel(len(paciente), 5)
         self.data.setHorizontalHeaderItem(0, QtGui.QStandardItem(u"RUT"))
         self.data.setHorizontalHeaderItem(1, QtGui.QStandardItem(u"Nombres"))
         self.data.setHorizontalHeaderItem(2, QtGui.QStandardItem(u"Apellidos"))
         self.data.setHorizontalHeaderItem(3, QtGui.QStandardItem(u"Ficha Medica"))
+        self.data.setHorizontalHeaderItem(4, QtGui.QStandardItem(u"Citas"))
 
         for r, row in enumerate(paciente):
             index = self.data.index(r, 0, QtCore.QModelIndex())
@@ -52,6 +53,8 @@ class Vtn3(QtGui.QWidget):
             self.data.setData(index, row['apellidos'])
             index = self.data.index(r, 3, QtCore.QModelIndex())
             self.data.setData(index, row['Ficha Medica'])
+            index = self.data.index(r, 4, QtCore.QModelIndex())
+            self.data.setData(index, row['Citas'])
 
         self.ui.table.setModel(self.data)
 
