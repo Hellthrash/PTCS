@@ -2,9 +2,10 @@
 # -*- coding: utf-8 -*-
 import sys
 from PySide import QtGui, QtCore
-from ctrl_form import FormAlumno
+from ctrl_form import FormPaciente
 from ui_grid import Ui_Grid
 import model as db_model
+#grilla de pacientes, donde los agrega, edita y elimina a la lista
 
 
 class Vtn3(QtGui.QWidget):
@@ -20,31 +21,27 @@ class Vtn3(QtGui.QWidget):
         self.connect_signals()
         self.show()
 
-    def connect_signals(self):
+    def connect_signals(self): #Conexion de los botones para las acciones
         self.ui.btn_add.clicked.connect(self.add)
-        self.ui.btn_delete.clicked.connect(self.delete)
+        self.ui.btn_delete.clicked.connect(self.confirmacion)
         self.ui.btn_edit.clicked.connect(self.edit)
 
     def add(self):
-        self.ui.form = FormAlumno(self)
+        self.ui.form = FormPaciente(self) #crea instancia formulario agrega paciente
         self.ui.form.accepted.connect(self.load_data)
         self.ui.form.show()
 
     def load_data(self):
         """
-        Función que carga la información de alumnos en la grilla
+        Función que carga la información de pacientes en la grilla
         """
         paciente = db_model.obtener_pacientes()
         #Creamos el modelo asociado a la tabla
         self.data = QtGui.QStandardItemModel(len(paciente), 4)
-        self.data.setHorizontalHeaderItem(
-            0, QtGui.QStandardItem(u"RUT"))
-        self.data.setHorizontalHeaderItem(
-            1, QtGui.QStandardItem(u"Nombres"))
-        self.data.setHorizontalHeaderItem(
-            2, QtGui.QStandardItem(u"Apellidos"))
-        self.data.setHorizontalHeaderItem(
-            3, QtGui.QStandardItem(u"Ficha Medica"))
+        self.data.setHorizontalHeaderItem(0, QtGui.QStandardItem(u"RUT"))
+        self.data.setHorizontalHeaderItem(1, QtGui.QStandardItem(u"Nombres"))
+        self.data.setHorizontalHeaderItem(2, QtGui.QStandardItem(u"Apellidos"))
+        self.data.setHorizontalHeaderItem(3, QtGui.QStandardItem(u"Ficha Medica"))
 
         for r, row in enumerate(paciente):
             index = self.data.index(r, 0, QtCore.QModelIndex())
@@ -60,24 +57,32 @@ class Vtn3(QtGui.QWidget):
 
         # Para que las columnas 1 y 2 se estire o contraiga cuando
         # se cambia el tamaño de la pantalla
-        self.ui.table.horizontalHeader().setResizeMode(
-            1, self.ui.table.horizontalHeader().Stretch)
-        self.ui.table.horizontalHeader().setResizeMode(
-            2, self.ui.table.horizontalHeader().Stretch)
+        self.ui.table.horizontalHeader().setResizeMode(1, self.ui.table.horizontalHeader().Stretch)
+        self.ui.table.horizontalHeader().setResizeMode(2, self.ui.table.horizontalHeader().Stretch)
 
         self.ui.table.setColumnWidth(0, 100)
         self.ui.table.setColumnWidth(1, 210)
         self.ui.table.setColumnWidth(2, 210)
         self.ui.table.setColumnWidth(3, 220)
 
-    def delete(self):
-        """
-        Función que intenta borrar un alumno de la base de datos e
-        indica el resultado de la operación
-        """
+    def confirmacion(self):
 
-        # ANTES DE REALIZAR LA ACCIÓN SE DEBERÍA PREGUNTAR
-        # AL USUARIO CONFIRMAR LA OPERACIÓN !!!!!!!!!!!!!!
+        msbox = QtGui.QMessageBox(self)
+        msbox.setText(u"Ud. Está eliminando un usuario del listado")
+        msbox.setInformativeText(u"Desea realizar ésta acción?")
+        msbox.setStandardButtons(QtGui.QMessageBox.Ok | QtGui.QMessageBox.Cancel)
+        rsp = msbox.exec_()
+
+        if rsp == QtGui.QMessageBox.Ok:
+            #self.delete()        Deshacer comentario para el borrado
+            print "realiza accion de eliminado"
+        else:
+            msbox = QtGui.QMessageBox(self)
+            msbox.setText("Cambios no realizados")
+            msbox.exec_()
+
+    def delete(self):
+        #antes de borrar realiza la confirmación del usuario
         data = self.ui.table.model()
         index = self.ui.table.currentIndex()
         if index.row() == -1:  # No se ha seleccionado una fila
@@ -111,7 +116,7 @@ class Vtn3(QtGui.QWidget):
             return False
         else:
             rut = data.index(index.row(), 0, QtCore.QModelIndex()).data()
-            self.ui.form = FormAlumno(self, rut)
+            self.ui.form = FormPaciente(self, rut)
             self.ui.form.accepted.connect(self.load_data)
             self.ui.form.show()
 

@@ -5,63 +5,60 @@ from ui_form import Ui_Form
 import model
 
 
-class FormAlumno(QtGui.QDialog):
+class FormPaciente(QtGui.QDialog):
 
     def __init__(self, parent=None, rut=None):
-        """
-        Formulario para crear y editar alumnos.
-        Si se recibe la var rut
-        entonces se está en modo de edición.
-        """
-        super(FormAlumno, self).__init__(parent)
+        super(FormPaciente, self).__init__(parent)
         self.ui = Ui_Form()
         self.ui.setupUi(self)
-        if rut is None:
-            self.ui.save.clicked.connect(self.crear_alumno)
+        if rut is None:# Cuando no recibe rut crea, cuando recibe edita
+            self.ui.save.clicked.connect(self.crear_paciente)
         else:
             self.colocar_datos(rut)
             self.ui.save.clicked.connect(self.editar_alumno)
 
     def colocar_datos(self, rut):
-        """
-        Coloca los datos del alumno en los widgets
-        para su edición
-        """
+        #ingresa los datos de los pacientes en las grillas
         alumno = model.alumno(rut)
         self.ui.rut.setText(alumno["rut"])
         self.ui.names.setText(alumno["nombres"])
         self.ui.lastnames.setText(alumno["apellidos"])
-        self.ui.email.setText(alumno["correo"])
+        self.ui.email.setText(alumno["ficha"])
 
     def obtener_datos(self):
-        """
-        Obtiene los datos colocados por el usuario
-        en el formulario
-        """
+        #obtiene los datos del paciente del formulario
         rut = self.ui.rut.text()
         nombres = self.ui.names.text()
         apellidos = self.ui.lastnames.text()
-        correo = self.ui.email.text()
-        return (rut, nombres, apellidos, correo)
+        ficha = self.ui.email.text()
+        return (rut, nombres, apellidos, ficha)
 
-    def crear_alumno(self):
-        rut, nombres, apellidos, correo = self.obtener_datos()
+    def crear_paciente(self):
+        rut, nombres, apellidos, ficha = self.obtener_datos()
+        print (rut)
+        print (nombres)
+        print (apellidos)
+
         try:
-            model.crear_alumno(rut, nombres, apellidos, correo)
+            model.agregar_paciente(rut, nombres, apellidos, ficha)
             self.accepted.emit()
             msgBox = QtGui.QMessageBox()
             msgBox.setText(u"El alumno ha sido creado.")
             msgBox.exec_()
             self.close()
-        except:
-            #Tratar errores!!!!!!
+        except(ValueError, IOError):
+            errorMessageDialog = QtGui.QMessageBox(self)
+            self.errorMessageDialog.setText("Debe Completar los campos correctamente")
+            self.errorMessageDialog.exec_()
             pass
 
     def editar_alumno(self):
-        rut, nombres, apellidos, correo = self.obtener_datos()
+        rut, nombres, apellidos, ficha = self.obtener_datos()
         try:
-            # Invocar la función del modelo que permite editar
+            model.editar_paciente(rut, nombre, apellidos, ficha)
             print "Editar"
-        except:
-            #Tratar errores!!!!!!
+        except (ValueError, IOError):
+            errorMessageDialog = QtGui.QMessageBox(self)
+            self.errorMessageDialog.setText("Debe Completar los campos correctamente")
+            self.errorMessageDialog.exec_()
             pass

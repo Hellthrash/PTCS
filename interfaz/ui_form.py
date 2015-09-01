@@ -6,6 +6,7 @@
 #      by: pyside-uic 0.2.14 running on PySide 1.1.2
 #
 # WARNING! All changes made in this file will be lost!
+#formulario para agregar con datos Nombre, Apellidos, Rut, correos
 
 from PySide import QtCore, QtGui
 
