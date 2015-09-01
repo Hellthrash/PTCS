@@ -5,7 +5,7 @@ from PySide import QtCore, QtGui
 from Mportal2 import *
 from w3 import Ui_login
 
-#aSsasdfaljsdhfkjsdfkjashdfkjasdfhk
+
 class Main(QtGui.QMainWindow):
     def __init__(self):
         super(Main, self).__init__()

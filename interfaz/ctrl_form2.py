@@ -5,20 +5,20 @@ from ui_form import Ui_Form
 import model
 
 
-class FormPaciente(QtGui.QDialog):
+class FormMedico(QtGui.QDialog):
 
     def __init__(self,parent = None, rut=None, nombres = None, apellidos = None, ficha = None):
-        super(FormPaciente, self).__init__(parent)
+        super(FormMedico, self).__init__(parent)
         self.ui = Ui_Form()
         self.ui.setupUi(self)
         if rut is None:# Cuando no recibe rut crea, cuando recibe edita
-            self.ui.save.clicked.connect(self.crear_paciente)
+            self.ui.save.clicked.connect(self.crear_medico)
         else:
-	    self.colocar_datos(rut, nombres, apellidos, ficha)
-            self.ui.save.clicked.connect(self.editar_pcte)
+            self.colocar_datos(rut, nombres, apellidos, ficha)
+            self.ui.save.clicked.connect(self.editar_mdco)
 
     def colocar_datos(self, rut, nombres, apellidos, ficha):
-        #ingresa los datos de los pacientes en las grillas
+        #ingresa los datos de los medicos en las grillas
         
         self.ui.rut.setText(str(rut))
         self.ui.names.setText(nombres)
@@ -26,14 +26,14 @@ class FormPaciente(QtGui.QDialog):
         self.ui.email.setText(ficha)
 
     def obtener_datos(self):
-        #obtiene los datos del paciente del formulario
+        #obtiene los datos del medico del formulario
         rut = self.ui.rut.text()
         nombres = self.ui.names.text()
         apellidos = self.ui.lastnames.text()
         ficha = self.ui.email.text()
         return (rut, nombres, apellidos, ficha)
 
-    def crear_paciente(self):
+    def crear_medico(self):
         rut, nombres, apellidos, ficha = self.obtener_datos()
         print ("%s, %s, %s, %s ")%(rut, nombres, apellidos, ficha)
         try:
@@ -49,7 +49,7 @@ class FormPaciente(QtGui.QDialog):
             self.errorMessageDialog.exec_()
             pass
 
-    def editar_pcte(self):
+    def editar_mdco(self):
       
         rut, nombres, apellidos, ficha = self.obtener_datos()
         try:

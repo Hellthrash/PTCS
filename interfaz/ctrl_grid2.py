@@ -2,16 +2,16 @@
 # -*- coding: utf-8 -*-
 import sys
 from PySide import QtGui, QtCore
-from ctrl_form import FormPaciente
+from ctrl_form2 import FormMedico
 from ui_grid import Ui_Grid
 import model as db_model
-#grilla de pacientes, donde los agrega, edita y elimina a la lista
+#grilla de medicos, donde los agrega, edita y elimina a la lista
 
 
-class Vtn3(QtGui.QWidget):
+class Vtn4(QtGui.QWidget):
     
     def __init__(self):
-        super(Vtn3, self).__init__()
+        super(Vtn4, self).__init__()
         self.ui = Ui_Grid()
         self.ui.setupUi(self)
 
@@ -25,24 +25,24 @@ class Vtn3(QtGui.QWidget):
         self.ui.btn_edit.clicked.connect(self.edit)
 
     def add(self):
-        self.ui.form = FormPaciente(self) #crea instancia formulario agrega paciente
+        self.ui.form = FormMedico(self) #crea instancia formulario agrega medico
         self.ui.form.accepted.connect(self.load_data)
         self.ui.form.show()
 
     def load_data(self):
         """
-        Función que carga la información de pacientes en la grilla
+        Función que carga la información de medico en la grilla
         """
-        paciente = db_model.obtener_pacientes()
+        mdco = db_model.obtener_pacientes()
         #Creamos el modelo asociado a la tabla
-        self.data = QtGui.QStandardItemModel(len(paciente), 4)
+        self.data = QtGui.QStandardItemModel(len(mdco), 5)
         self.data.setHorizontalHeaderItem(0, QtGui.QStandardItem(u"RUT"))
         self.data.setHorizontalHeaderItem(1, QtGui.QStandardItem(u"Nombres"))
         self.data.setHorizontalHeaderItem(2, QtGui.QStandardItem(u"Apellidos"))
-        self.data.setHorizontalHeaderItem(3, QtGui.QStandardItem(u"Ficha Medica"))
-	self.data.setHorizontalHeaderItem(4, QtGui.QStandardItem(u"Citas"))
-	
-        for r, row in enumerate(paciente):
+        self.data.setHorizontalHeaderItem(3, QtGui.QStandardItem(u"Ficha Medica"))#posible error de valor tienne especialidad
+        self.data.setHorizontalHeaderItem(4, QtGui.QStandardItem(u"Citas"))
+
+        for r, row in enumerate(mdco):
             index = self.data.index(r, 0, QtCore.QModelIndex())
             self.data.setData(index, row['rut'])
             index = self.data.index(r, 1, QtCore.QModelIndex())
@@ -113,11 +113,11 @@ class Vtn3(QtGui.QWidget):
             self.errorMessageDialog.showMessage(u"Debe seleccionar una fila")
             return False
         else:
-	    rut = data.index(index.row(), 0, QtCore.QModelIndex()).data()
+            rut = data.index(index.row(), 0, QtCore.QModelIndex()).data()
             nombres = data.index(index.row(), 1, QtCore.QModelIndex()).data()
             apellidos = data.index(index.row(), 2, QtCore.QModelIndex()).data()
             ficha = data.index(index.row(), 3, QtCore.QModelIndex()).data()
-            self.ui.form = FormPaciente(self, rut, nombres, apellidos, ficha)
+            self.ui.form = FormMedico(self, rut, nombres, apellidos, ficha)
             self.ui.form.accepted.connect(self.load_data)
             self.ui.form.show()
 
